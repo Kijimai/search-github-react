@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import mockUser from "./mockData.js/mockUser"
 import mockRepos from "./mockData.js/mockRepos"
 import mockFollowers from "./mockData.js/mockFollowers"
@@ -18,6 +18,10 @@ const GithubProvider = ({ children }) => {
       {children}
     </GithubContext.Provider>
   )
+}
+
+export const useGlobalContext = () => {
+  return useContext(GithubContext)
 }
 
 export { GithubContext, GithubProvider }
