@@ -4,7 +4,20 @@ import { useGlobalContext } from "../context/context"
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts"
 const Repos = () => {
   const { repos } = useGlobalContext()
-  console.log(repos)
+  const languages = repos.reduce((total, repoItem) => {
+    const { language, stargazers_count: stars } = repoItem
+    if (!language) return total
+    if (!total[language]) {
+      total[language] = { label: language, value: 1, stars: stars }
+    } else {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+        stars: total[language].stars + stars,
+      }
+    }
+    return total
+  }, {})
 
   const chartData = [
     {
@@ -19,16 +32,34 @@ const Repos = () => {
     },
     {
       label: "Javascript",
-      value: "80",
+      value: "87",
       color: "#E7D736",
     },
   ]
 
+  //creates an array off of an object and sort it from highest amount to lowest - up to 5 languages
+  const mostUsed = Object.values(languages)
+    .sort((a, b) => {
+      return b.value - a.value
+    })
+    .slice(0, 5)
+
+  const mostPopular = Object.values(languages)
+    .sort((a, b) => {
+      return b.stars - a.stars
+    })
+    .map((item) => {
+      return { ...item, value: item.stars }
+    })
+    .slice(0, 5)
+
   return (
     <div className="section">
       <Wrapper className="section-center">
-        {/* <ExampleChart data={chartData} /> */}
-        <Pie3D data={chartData} />
+        <Pie3D data={mostUsed} />
+        <div></div>
+        <Doughnut2D data={mostPopular} />
+        <div></div>
       </Wrapper>
     </div>
   )
