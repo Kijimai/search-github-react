@@ -1,7 +1,30 @@
-import React from 'react';
+import React from "react"
+import ReactFC from "react-fusioncharts"
+import FusionCharts from "fusioncharts"
+import Chart from "fusioncharts/fusioncharts.charts"
+import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion"
 
-const Pie3D = () => {
-  return <div>chart</div>;
-};
+ReactFC.fcRoot(FusionCharts, Chart, FusionTheme)
 
-export default Pie3D;
+const ChartComponent = ({ data }) => {
+  const chartConfigs = {
+    type: "pie3d",
+    width: "400",
+    height: "400",
+    dataFormat: "json",
+    dataSource: {
+      chart: {
+        caption: "Languages",
+        theme: "fusion",
+        decimals: 0,
+        pieRadius: "55%",
+      },
+      data,
+    },
+  }
+  return <ReactFC {...chartConfigs} />
+}
+
+// STEP 4 - Creating the DOM element to pass the react-fusioncharts component
+
+export default ChartComponent

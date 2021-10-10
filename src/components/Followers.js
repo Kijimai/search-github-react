@@ -1,10 +1,30 @@
-import React from 'react';
-import { GithubContext } from '../context/context';
-import styled from 'styled-components';
+import React from "react"
+import { useGlobalContext } from "../context/context"
+import styled from "styled-components"
 
 const Followers = () => {
-  return <h2>followers component</h2>;
-};
+  const { followers } = useGlobalContext()
+  return (
+    <Wrapper>
+      <div className="followers">
+        {followers.map((follower, index) => {
+          const { avatar_url: img, html_url, login } = follower
+          return (
+            <article key={index}>
+              <img src={img} alt={login} />
+              <div>
+                <h4>{login}</h4>
+                <a target="_blank" rel="noreferrer noopener" href={html_url}>
+                  {html_url}
+                </a>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </Wrapper>
+  )
+}
 
 const Wrapper = styled.article`
   background: var(--clr-white);
@@ -14,7 +34,7 @@ const Wrapper = styled.article`
   position: relative;
 
   &::before {
-    content: ' followers';
+    content: " followers";
     position: absolute;
     top: 0;
     left: 0;
@@ -28,13 +48,24 @@ const Wrapper = styled.article`
     letter-spacing: var(--spacing);
     font-size: 1rem;
   }
+
   .followers {
-    overflow: scroll;
+    overflow: hidden scroll;
     height: 260px;
     display: grid;
     grid-template-rows: repeat(auto-fill, minmax(45px, 1fr));
     gap: 1.25rem 1rem;
     padding: 1rem 2rem;
+  }
+  .followers::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  .followers::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .followers::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
   }
   article {
     transition: var(--transition);
@@ -57,5 +88,5 @@ const Wrapper = styled.article`
       color: var(--clr-grey-5);
     }
   }
-`;
-export default Followers;
+`
+export default Followers

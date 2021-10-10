@@ -1,9 +1,10 @@
 import React from "react"
-import { GithubContext } from "../context/context"
+import { useGlobalContext } from "../context/context"
 import styled from "styled-components"
 import { MdBusiness, MdLocationOn, MdLink } from "react-icons/md"
+
 const Card = () => {
-  const { githubUser } = React.useContext(GithubContext)
+  const { githubUser } = useGlobalContext()
   const {
     avatar_url,
     html_url,
@@ -14,13 +15,17 @@ const Card = () => {
     location,
     twitter_username,
   } = githubUser
+
   return (
     <Wrapper>
       <header>
         <img src={avatar_url} alt={name} />
         <div>
           <h4>{name}</h4>
-          <p>@{twitter_username || "No Twitter Profile"}</p>
+          <p>
+            {(twitter_username !== null && `@${twitter_username}`) ||
+              "No Twitter Profile"}
+          </p>
         </div>
         <a href={html_url}>follow</a>
       </header>
@@ -42,6 +47,7 @@ const Card = () => {
     </Wrapper>
   )
 }
+
 const Wrapper = styled.article`
   background: var(--clr-white);
   padding: 1.5rem 2rem;
