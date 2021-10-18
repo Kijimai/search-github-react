@@ -3,7 +3,7 @@
 Fonts
 ===============
 */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
 
 /*
 =============== 
@@ -43,8 +43,8 @@ Variables
   --clr-green-dark: hsl(125, 67%, 44%);
   --clr-green-light: hsl(125, 71%, 66%);
   --clr-black: #222;
-  --ff-primary: 'Roboto', sans-serif;
-  --ff-secondary: 'Open Sans', sans-serif;
+  --ff-primary: "Roboto", sans-serif;
+  --ff-secondary: "Open Sans", sans-serif;
   --transition: all 0.3s linear;
   --spacing: 0.1rem;
   --radius: 0.25rem;
@@ -52,7 +52,12 @@ Variables
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   --max-width: 1170px;
   --fixed-width: 620px;
+  --effect: hover 0.9s linear infinite;
+  --color-primary: hsl(39, 100%, 53%);
+  --color-primary-light: hsl(39, 84%, 71%);
+  --color-primary-dark: hsl(39, 58%, 45%);
 }
+
 /*
 =============== 
 Global Styles
@@ -180,4 +185,63 @@ p {
 }
 main {
   padding-bottom: 2rem;
+}
+
+/* Loaded Animation */
+
+.loader {
+  text-align: center;
+}
+.loader p {
+  display: inline-block;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 4em;
+  font-family: arial;
+  font-weight: 600;
+  transform: scale(0.5);
+  color: #121212;
+  -webkit-text-stroke: 2px var(--color-dark);
+}
+.loader p:nth-child(1) {
+  animation: var(--effect);
+}
+.loader p:nth-child(2) {
+  animation: var(--effect) 0.125s;
+}
+.loader p:nth-child(3) {
+  animation: var(--effect) 0.25s;
+}
+.loader p:nth-child(4) {
+  animation: var(--effect) 0.375s;
+}
+.loader p:nth-child(5) {
+  animation: var(--effect) 0.5s;
+}
+.loader p:nth-child(6) {
+  animation: var(--effect) 0.675s;
+}
+.loader p:nth-child(7) {
+  animation: var(--effect) 0.75s;
+}
+
+@keyframes hover {
+  0% {
+    transform: scale(0.5);
+    color: #121212;
+    -webkit-text-stroke: 2px gray;
+  }
+  20% {
+    transform: scale(1);
+    color: var(--color-primary);
+    -webkit-text-stroke: 3px var(--color-primary-light);
+    filter: drop-shadow(0 0 1px black) drop-shadow(0 0 1px black)
+      drop-shadow(0 0 3px var(--color-primary-light))
+      drop-shadow(0 0 5px var(--color-primary-light)) hue-rotate(10turn);
+  }
+  50% {
+    transform: scale(0.5);
+    color: #121212;
+    -webkit-text-stroke: 2px gray;
+  }
 }

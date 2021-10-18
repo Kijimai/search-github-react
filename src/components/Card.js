@@ -33,11 +33,11 @@ const Card = () => {
       <div className="links">
         <p>
           <MdBusiness />
-          {company}
+          {company || "No Company"}
         </p>
         <p>
           <MdLocationOn />
-          {location}
+          {location || "No Specified Location"}
         </p>
         <a href={`https://${blog}`}>
           <MdLink />

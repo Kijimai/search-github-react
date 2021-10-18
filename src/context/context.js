@@ -26,7 +26,12 @@ const GithubProvider = ({ children }) => {
   //Search for user on submit
   const searchGithubUser = async (user) => {
     toggleError()
-    //setLoading(true)
+    setIsLoading(true)
+    if (user === "") {
+      setIsLoading(false)
+      toggleError(true, "Unable to search for empty username.")
+      return
+    }
     const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
       console.log(err)
     )
@@ -36,6 +41,8 @@ const GithubProvider = ({ children }) => {
     } else {
       toggleError(true, "No user with that username was found.")
     }
+    checkRequests()
+    setIsLoading(false)
   }
 
   //check rate
